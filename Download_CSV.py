@@ -55,3 +55,16 @@ class CSVFile:
         with open(path, 'r') as fp:
             _dict = json.load(fp)
         return _dict
+
+
+    @staticmethod
+    def __Download_Symbols():
+        # download Symbols(json file)
+        # set url
+        url = 'http://www.tsetmc.com/Loader.aspx?ParTree=111C1417'
+        # Get Content
+        content = CSVFile.__Get_Content(url)
+        # Split Id and symbol
+        _dict = CSVFile.__Split_Id_Symbol(content)
+        # Save Json
+        CSVFile.__Save_Json(_dict)
