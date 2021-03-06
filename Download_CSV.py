@@ -68,3 +68,16 @@ class CSVFile:
         _dict = CSVFile.__Split_Id_Symbol(content)
         # Save Json
         CSVFile.__Save_Json(_dict)
+
+    @staticmethod
+    def __CSV_Downloader(symbolID, symbol):
+        # set url
+        url = 'http://www.tsetmc.com/tsev2/data/Export-txt.aspx?t=i&a=1&b=0&i={}'.format(symbolID)
+        print('Downloading CSV...')
+        # send requests
+        data = get(url)
+        print('Save CSV')
+        # save csv
+        with open('{}.csv'.format(symbol), 'wb') as f:
+            f.write(data.content)
+        print('Saved CSV {} to {}.csv'.format(symbol, symbol))
