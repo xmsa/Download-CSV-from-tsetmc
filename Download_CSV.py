@@ -2,6 +2,7 @@
 from requests import get
 from bs4 import BeautifulSoup
 import re
+import json
 
 
 class CSVFile:
@@ -36,4 +37,21 @@ class CSVFile:
             _id = re.findall(r'inscode=([\d]+)', href)[0]
             # add symbol and id to dict
             _dict[txt] = _id
+        return _dict
+
+
+    @staticmethod
+    def __Save_Json(_dict):
+        path = 'data.json'
+        # save json
+        with open(path, 'w') as fp:
+            json.dump(_dict, fp)
+
+    
+    @staticmethod
+    def __Load_Json():
+        path = 'data.json'
+        # load json
+        with open(path, 'r') as fp:
+            _dict = json.load(fp)
         return _dict
