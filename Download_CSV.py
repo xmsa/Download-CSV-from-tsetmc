@@ -3,6 +3,7 @@ from requests import get
 from bs4 import BeautifulSoup
 import re
 import json
+import os
 
 
 class CSVFile:
@@ -81,3 +82,18 @@ class CSVFile:
         with open('{}.csv'.format(symbol), 'wb') as f:
             f.write(data.content)
         print('Saved CSV {} to {}.csv'.format(symbol, symbol))
+
+    @staticmethod
+    def Download_CSV(symbol):
+        # check exist json file
+        if not os.path.exists('data.json'):
+            # Download json file
+            CSVFile.__Download_Symbols()
+        # load json file
+        symbols = CSVFile.__Load_Json()
+        # check symbol in symbols(dict)
+        if symbol in symbols:
+            # Download CSV file
+            CSVFile.__CSV_Downloader(symbols[symbol], symbol)
+        else:
+            print('not find {}'.format(symbol))
